@@ -88,6 +88,7 @@ public class MyStepDefs extends BasePage {
         cart = new Cart();
         Cart.placingOrder();
         Assert.assertEquals(Cart.confirmAddedProduct(), "RW-51");
+
     }
 
     @Then("^user can proceed to chckout$")
@@ -98,7 +99,7 @@ public class MyStepDefs extends BasePage {
     }
 
     // *** Login Step definitions *** //
-
+//update
     @When("^user clicks on login button$")
     public void user_clicks_on_login_button() throws Throwable {
         homePage = new HomePage();

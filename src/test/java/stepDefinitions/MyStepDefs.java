@@ -99,7 +99,7 @@ public class MyStepDefs extends BasePage {
     }
 
     // *** Login Step definitions *** //
-//update //
+//update update //
     @When("^user clicks on login button$")
     public void user_clicks_on_login_button() throws Throwable {
         homePage = new HomePage();

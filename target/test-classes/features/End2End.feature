@@ -1,6 +1,7 @@
+@all
 Feature: Cakes and Bakes
 
-  @all
+  @cake
   Scenario: Adding a cake to shopping cart
 
     Given user is on cakes and bakes homepage
@@ -11,8 +12,13 @@ Feature: Cakes and Bakes
     Then the user chose cake size
     And the user enters message to write on the cake
     Then the user should add it to the cart
-    And user can see the item in the cart
-    Then user can proceed to chckout
+    Then user can see the item in the cart
+    Then user can proceed to checkout
+    And user can select date, time
+    And user clicks on next button
+    And user enters his "username", "password"
+    And user clicks on submit button
+    Then user should go to payment page
 
     @login
     Scenario: Login

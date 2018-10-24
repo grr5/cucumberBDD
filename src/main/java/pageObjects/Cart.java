@@ -13,7 +13,7 @@ public class Cart extends BasePage {
     @FindBy(linkText = "PLACE ORDER")
     static WebElement placeOrder;
 
-    @FindBy(xpath = "//*[@id=\"wrapper\"]/div[3]/section/div/div/div/div[2]/div/div/div[1]/table/tbody/tr[1]/td[1]/div/div[2]/a")
+    @FindBy(linkText = "RW-51")
     static WebElement product;
 
     public static void placingOrder(){
@@ -21,6 +21,6 @@ public class Cart extends BasePage {
     }
 
     public static String confirmAddedProduct(){
-        return product.getText();
+       return product.getText();
     }
 }

@@ -19,22 +19,18 @@ public class CheckOutPage extends BasePage {
     @FindBy(xpath = "//*[@id=\"franchise_collection_date_time\"]/button")
     static WebElement clickNext;
 
-    @FindBy(name = "email")
-    static WebElement email;
 
-    @FindBy(name = "password")
-    static WebElement pwd;
 
-    @FindBy(name = "btnsubmit")
-    static WebElement submitButton;
+    public static String verifyCheckoutPage(){
+        return driver.getCurrentUrl().toString();
+    }
 
-    public static void selectDate(String ema, String pass){
+    public static void selectDateTime(){
         choseDate.click();
         date.click();
-        clickNext.click();
-        email.sendKeys(ema);
-        pwd.sendKeys(pass);
-        submitButton.click();
-
     }
+    public static void clickOnNextLink(){
+        clickNext.click();
+    }
+
 }

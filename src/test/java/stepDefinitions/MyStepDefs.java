@@ -3,6 +3,7 @@ package stepDefinitions;
 import browserFactory.BrowserFactory;
 import cucumber.api.DataTable;
 import cucumber.api.PendingException;
+import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -12,8 +13,11 @@ import helpers.ActionsHelper;
 import helpers.DropDownHelper;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
 import pageObjects.*;
 import utils.Helpers;
+import utils.Utilities;
 
 import java.util.List;
 
@@ -25,6 +29,7 @@ public class MyStepDefs extends BasePage {
     Cart cart;
     RegisterPage registerPage;
     CheckOutPage checkOutPage;
+    CheckOut_2 checkOut_2;
 
     public MyStepDefs(){
         super();
@@ -33,11 +38,13 @@ public class MyStepDefs extends BasePage {
     @Before
     public void openBrowser(){
         browserFactory.browserSetup();
+        Utilities.captureScreenShot();
     }
 
     @Given("^user is on cakes and bakes homepage$")
     public void user_is_on_cakes_and_bakes_homepage() throws Throwable {
         Assert.assertEquals(HomePage.verifyUrl(), "https://www.cakesbakes.co.uk/");
+        Utilities.captureScreenShot();
     }
 
     @When("^user clicks on cakes button$")
@@ -86,16 +93,40 @@ public class MyStepDefs extends BasePage {
     @Then("^user can see the item in the cart$")
     public void user_can_see_the_item_in_the_cart() throws Throwable {
         cart = new Cart();
-        Cart.placingOrder();
         Assert.assertEquals(Cart.confirmAddedProduct(), "RW-51");
-
     }
 
-    @Then("^user can proceed to chckout$")
-    public void user_can_proceed_to_chckout() throws Throwable {
-        checkOutPage = new CheckOutPage(driver);
+    @Then("^user can proceed to checkout$")
+    public void user_can_proceed_to_checkout() throws Throwable {
+        Cart.placingOrder();
+        Assert.assertEquals(CheckOutPage.verifyCheckoutPage(), "https://www.cakesbakes.co.uk/shop-checkout");
+    }
 
-        CheckOutPage.selectDate("qatest@gmail.com", "qatest@25");
+    @Then("^user can select date, time$")
+    public void user_can_select_date_time() throws Throwable {
+        checkOutPage = new CheckOutPage(driver);
+        CheckOutPage.selectDateTime();
+    }
+
+    @Then("^user clicks on next button$")
+    public void user_clicks_on_next_button() throws Throwable {
+        CheckOutPage.clickOnNextLink();
+    }
+
+    @Then("^user enters his \"([^\"]*)\", \"([^\"]*)\"$")
+    public void user_enters_his(String arg1, String arg2) throws Throwable {
+        checkOut_2 = new CheckOut_2(driver);
+        CheckOut_2.enterUserDetails("qatest@gmail.com", "qatest@25");
+    }
+
+    @Then("^user clicks on submit button$")
+    public void user_clicks_on_submit_button() throws Throwable {
+        CheckOut_2.clickOnSubmit();
+    }
+
+    @Then("^user should go to payment page$")
+    public void user_should_go_to_payment_page() throws Throwable {
+        Assert.assertEquals(CheckOut_2.verifyPaymentPage(), "Make Payment");
     }
 
     // *** Login Step definitions *** //
@@ -157,6 +188,11 @@ public class MyStepDefs extends BasePage {
     @Then("^user should be able to register$")
     public void user_should_be_able_to_register() throws Throwable {
         Assert.assertEquals(RegisterPage.verifyUserRegistration(), "Your registration has been successful");
+    }
+
+    @After
+    public void tearDown(){
+        Utilities.captureScreenShot();
     }
 
 }

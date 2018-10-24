@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BrowserFactory extends BasePage {
 
-    public static Properties prop =new Properties();;
+    public static Properties prop =new Properties();
 
     public BrowserFactory(){
         try {
